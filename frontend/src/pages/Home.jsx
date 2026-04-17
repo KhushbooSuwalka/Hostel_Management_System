@@ -32,7 +32,7 @@ function Home() {
     <>
       <section
         className="bg-gradient-to-r from-blue-800 to-blue-600 text-white w-full h-[60vh] min-h-[350px] bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('src/assets/image3.png')" }}
+        style={{ backgroundImage: "url('/image3.png')" }}
       >
         <div className="max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-10 items-center">
           <div>
