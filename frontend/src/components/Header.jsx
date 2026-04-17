@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { API_BASE_URL } from "../config/api";
 
 function Header() {
   const navigate = useNavigate();
@@ -37,7 +38,7 @@ function Header() {
 
   const forgotPasswordUser = async () => {
     try {
-      const res = await axios.post("http://localhost:5000/forgot-password", {
+      const res = await axios.post(`${API_BASE_URL}/forgot-password`, {
         username,
         password,
       });
@@ -52,7 +53,7 @@ function Header() {
 
   const setPasswordUser = async () => {
     try {
-      const res = await axios.post("http://localhost:5000/set-password", {
+      const res = await axios.post(`${API_BASE_URL}/set-password`, {
         username,
         password,
       });
@@ -67,7 +68,7 @@ function Header() {
 
   const loginUser = async () => {
     try {
-      const res = await axios.post("http://localhost:5000/login", {
+      const res = await axios.post(`${API_BASE_URL}/login`, {
         username,
         password,
         role,
