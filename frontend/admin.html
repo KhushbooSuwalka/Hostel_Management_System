@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard | Hostel Management</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+</head>
+
+<body class="bg-gray-100 ">
+
+
+
+  <!-- NAVBAR -->
+  <nav class="bg-blue-900 text-white">
+    <div class="max-w-7xl mx-auto flex items-center justify-between px-5 py-4">
+      <div class="text-xl text-blue-200 font-bold flex items-center gap-2">
+        <i class="fas fa-building icon"></i> Hostel Management
+      </div>
+
+      <!-- Hamburger -->
+      <button id="menuBtn" class="md:hidden border-2 border-gray-500 rounded-lg p-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+
+      <!-- Desktop Menu -->
+      <ul class="hidden md:flex gap-6 font-medium">
+        <li><a href="index.html" class="font-bold text-white hover:border-b-2 border-white pb-1">Home</a></li>
+        <li><a href="room_allotment.html" class="font-bold text-white hover:border-b-2 border-white pb-1">Room
+            Request</a></li>
+        <li><a href="grievance.html" class="font-bold text-white hover:border-b-2 border-white pb-1">Grievance</a></li>
+        <li><a href="contact.html" class="font-bold text-white hover:border-b-2 border-white pb-1">Contact</a></li>
+        <li><a href="admin.html" class="font-bold text-white hover:border-b-2 border-white pb-1">Admin</a></li>
+        <li>
+          <button id="loginBtnDesktop" onclick="openModal()"
+            class="font-bold bg-white text-blue-900 px-4 py-1 rounded hover:underline">
+            Login
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Mobile Menu (REFERENCE STYLE) -->
+    <div id="mobileMenu" class="hidden px-6 pb-6 md:hidden">
+      <ul class="space-y-6 text-gray-700 text-lg">
+        <li><a href="index.html" class=" text-white hover:border-b-2 border-white pb-1">Home</a></li>
+        <li><a href="room_allotment.html" class="text-white hover:border-b-2 border-white pb-1">Room Request</a></li>
+        <li><a href="grievance.html" class="text-white hover:border-b-2 border-white pb-1">Grievance</a></li>
+        <li><a href="contact.html" class="text-white hover:border-b-2 border-white pb-1">Contact</a></li>
+        <li><a href="admin.html" class="text-white hover:border-b-2 border-white pb-1">Admin</a></li>
+      </ul>
+
+      <!-- Login Button -->
+      <button id="loginBtnMobile" onclick="openModal()"
+        class="font-bold bg-white text-blue-900 px-4 py-1 rounded hover:underline">
+        Login
+      </button>
+    </div>
+  </nav>
+  <!-- Modal -->
+  <div id="loginModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-xl shadow-lg w-full max-w-md relative animate-scale">
+
+      <!-- Close Button -->
+      <button onclick="closeModal()" class="absolute top-3 right-4 text-3xl text-gray-500 hover:text-red-500">
+        &times;
+      </button>
+
+      <!-- Avatar -->
+      <div class="flex justify-center mt-8">
+        <img src="image4.png" class="w-24 h-24 rounded-full border" alt="avatar">
+      </div>
+
+      <!-- Form -->
+      <form class="px-8 py-6 space-y-4">
+
+        <div>
+          <label class="block font-medium">Username</label>
+          <input type="text" placeholder="Enter Username"
+            class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none">
+        </div>
+
+        <div>
+          <label class="block font-medium">Password</label>
+          <input type="password" placeholder="Enter Password"
+            class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none">
+        </div>
+
+        <button type="submit" class="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700">
+          Login
+        </button>
+
+        <div class="flex items-center justify-between text-sm">
+          <label class="flex items-center gap-2">
+            <input type="checkbox" checked>
+            Remember me
+          </label>
+          <a href="#" class="text-blue-600 hover:underline">Forgot password?</a>
+        </div>
+      </form>
+      <div class="bg-gray-100 px-8 py-4 rounded-b-xl">
+        <button onclick="closeModal()" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header id="admin" class="bg-blue-900 mt-4 rounded-xl shadow-sm p-6">
+    <h1 class="text-3xl font-bold text-center text-white">Admin</h1>
+    <p class="text-center text-blue-100 mt-1">Centralized control for grievances, notices, and room management.</p>
+  </header>
+
+  <main class="max-w-7xl mx-auto p-6 space-y-8">
+
+    <!-- STATUS CARDS -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-white rounded-xl p-6 shadow flex justify-between items-center">
+        <div>
+          <p class="text-gray-500">Pending</p>
+          <h2 class="text-3xl font-bold text-yellow-500">32</h2>
+        </div>
+        <div class="bg-yellow-100 p-3 rounded-full">⏳</div>
+      </div>
+
+      <div class="bg-white rounded-xl p-6 shadow flex justify-between items-center">
+        <div>
+          <p class="text-gray-500">In Progress</p>
+          <h2 class="text-3xl font-bold text-blue-600">18</h2>
+        </div>
+        <div class="bg-blue-100 p-3 rounded-full">⚙️</div>
+      </div>
+
+      <div class="bg-white rounded-xl p-6 shadow flex justify-between items-center">
+        <div>
+          <p class="text-gray-500">Resolved</p>
+          <h2 class="text-3xl font-bold text-green-600">70</h2>
+        </div>
+        <div class="bg-green-100 p-3 rounded-full">✔️</div>
+      </div>
+    </div>
+    <!-- ACTION CARDS -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div onclick="showSection('grievance')" class="cursor-pointer bg-white p-6 rounded-xl shadow hover:shadow-lg">
+        <h2 class="text-xl font-bold text-blue-700">Grievance Management</h2>
+        <p class="text-gray-500 mt-2">View & resolve complaints</p>
+      </div>
+
+      <div onclick="showSection('notice')" class="cursor-pointer bg-white p-6 rounded-xl shadow hover:shadow-lg">
+        <h2 class="text-xl font-bold text-red-600">Important Notices</h2>
+        <p class="text-gray-500 mt-2">View latest hostel notices</p>
+      </div>
+
+
+      <div onclick="showSection('rooms')" class="cursor-pointer bg-white p-6 rounded-xl shadow hover:shadow-lg">
+        <h2 class="text-xl font-bold text-purple-700">Room Management</h2>
+        <p class="text-gray-500 mt-2">Update / delete hostel rooms</p>
+      </div>
+    </div>
+
+    <!-- GRIEVANCE SECTION -->
+    <section id="grievance" class="hidden bg-white p-6 rounded-xl shadow">
+      <h2 class="text-2xl font-bold mb-4">Grievances</h2>
+      <table class="w-full">
+        <thead class="bg-gray-200">
+          <tr>
+            <th class="p-3">ID</th>
+            <th class="p-3">Student</th>
+            <th class="p-3">Room</th>
+            <th class="p-3">Issue</th>
+            <th class="p-3">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b">
+            <td class="p-3">01</td>
+            <td class="p-3">Amit</td>
+            <td class="p-3">203</td>
+            <td class="p-3">Water Leakage</td>
+            <td class="p-3">
+              <button onclick="openGrievanceAndJump()" class="bg-blue-600 text-white px-3 py-1 rounded">View</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- NOTICE SECTION -->
+    <section id="notice" class="hidden bg-white p-6 rounded-xl shadow">
+      <h2 class="text-2xl font-bold mb-4">Important Notices</h2>
+
+      <!-- Admin Add Notice -->
+      <div class="flex gap-2 mb-4">
+        <input id="noticeInput" type="text" placeholder="Write new notice..." class="flex-1 border rounded px-3 py-2">
+
+        <button onclick="addNotice()" class="bg-blue-600 text-white px-4 py-2 rounded">
+          Add Notice
+        </button>
+      </div>
+
+      <!-- Notice List -->
+      <ul id="noticeList" class="space-y-2"></ul>
+    </section>
+
+
+    <!-- ROOM MANAGEMENT SECTION -->
+    <section id="rooms" class="hidden bg-white p-6 rounded-xl shadow">
+      <h2 class="text-2xl font-bold text-center mb-6">Hostel Room Arrangement</h2>
+      <div class="flex justify-center gap-4 mb-6">
+        <button onclick="openFloor(1)" class="px-6 py-2 bg-blue-600 text-white rounded">Floor 1</button>
+        <button onclick="openFloor(2)" class="px-6 py-2 bg-blue-600 text-white rounded">Floor 2</button>
+        <button onclick="openFloor(3)" class="px-6 py-2 bg-blue-600 text-white rounded">Floor 3</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ROOM MODAL -->
+  <div id="roomModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center">
+    <div class="bg-white max-w-5xl w-full p-6 rounded-xl relative">
+      <button onclick="closeRoomModal()" class="absolute right-4 top-3 text-2xl">✖</button>
+      <h3 id="floorTitle" class="text-xl font-bold mb-4"></h3>
+
+      <div class="flex gap-4 mb-4">
+        <div id="vacantCount" class="bg-green-100 text-green-800 px-4 py-2 rounded"></div>
+        <div id="occupiedCount" class="bg-red-100 text-red-800 px-4 py-2 rounded"></div>
+      </div>
+
+      <div id="roomData"></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-blue-900 text-white mt-10">
+    <div class="max-w-7xl mx-auto px-6 py-10 grid md:grid-cols-4 gap-6 text-sm">
+      <div>
+        <h4 class="font-bold mb-2">About</h4>
+        <p>Efficient hostel management and grievance control system.</p>
+      </div>
+      <div>
+        <h4 class="font-bold mb-2">Quick Links</h4>
+        <p>Home</p>
+        <p>Room Allocation</p>
+        <p>Grievance</p>
+        <p>Contact</p>
+      </div>
+      <div>
+        <h4 class="font-bold mb-2">Contact</h4>
+        <p>Email: khushbusuwalka2006@gmail.com</p>
+        <p>Phone: +91 9929823850</p>
+        <p>Email: kanishkajoshi206@gmail.com</p>
+        <p>Phone: +91 7300427924</p>
+      </div>
+      <div>
+        <h4 class="font-bold mb-2">Follow Us</h4>
+        <p><a href="https://www.facebook.com" target="_blank" class="facebook-icon">
+            <i class="fab fa-facebook"></i>
+          </a> |
+          <a href="https://twitter.com" target="_blank" class="twitter-icon">
+            <i class="fab fa-twitter"></i>
+          </a> |
+          <a href="https://www.instagram.com" target="_blank" class="instagram-icon">
+            <i class="fab fa-instagram"></i>
+          </a>
+        </p>
+      </div>
+    </div>
+    <div class="text-center text-xs bg-blue-950 py-3">
+      © 2026 Hostel Management System. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    const role = sessionStorage.getItem("userRole");
+
+    if (role !== "admin") {
+      alert("Access Denied! Admin login required.");
+      window.location.href = "index.html";
+    }
+    //modal functions
+    function openModal() {
+      document.getElementById("loginModal").classList.remove("hidden");
+    }
+
+    function closeModal() {
+      document.getElementById("loginModal").classList.add("hidden");
+    }
+
+    window.onclick = function (e) {
+      const modal = document.getElementById("loginModal");
+      if (e.target === modal) closeModal();
+    };
+
+
+    function renderNotices() {
+      const list = document.getElementById("noticeList");
+      list.innerHTML = "";
+
+      notices.forEach((n, index) => {
+        list.innerHTML += `
+      <li class="border-b pb-2 flex justify-between items-center">
+        <span>
+          • ${n.text}
+          ${n.isNew ? '<span class="bg-red-500 text-white text-xs px-2 py-1 ml-2 rounded">NEW</span>' : ''}
+        </span>
+
+        
+      </li>
+    `;
+      });
+    }
+
+    function addNotice() {
+      const input = document.getElementById("noticeInput");
+      const text = input.value.trim();
+
+      if (text === "") return;
+
+      notices.unshift({ text: text, isNew: true }); // NEW notice
+      input.value = "";
+      renderNotices();
+    }
+
+
+    let notices = [
+      { text: "Mess timing updated", isNew: false },
+      { text: "Water supply maintenance tomorrow", isNew: false }
+    ];
+
+    function showSection(id) {
+      ['grievance', 'notice', 'rooms'].forEach(s => document.getElementById(s).classList.add('hidden'));
+      document.getElementById(id).classList.remove('hidden');
+
+      // auto load notices
+      if (id === 'notice') {
+        const list = document.getElementById("noticeList");
+        list.innerHTML = "";
+
+        notices.forEach(n => {
+          list.innerHTML += `<li class="border-b pb-2">• ${n.text}</li>`;
+        });
+      }
+    }
+
+
+    function openGrievanceAndJump() {
+      showSection('rooms');
+      setTimeout(() => openFloor(2), 300);
+    }
+
+    const hostelData = {
+      1: { double: [{ room: '101', students: [] }, { room: '102', students: ['A', 'B'] }], triple: [] },
+      2: { double: [], triple: [{ room: '203', students: ['X', 'Y', 'Z'] }] },
+      3: { double: [{ room: '301', students: [] }], triple: [] }
+    };
+
+    function openFloor(floor) {
+      roomModal.classList.remove('hidden');
+      roomModal.classList.add('flex');
+      floorTitle.innerText = `Floor ${floor} Room Details`;
+
+      let vacant = 0, occupied = 0, html = '';
+
+      ['double', 'triple'].forEach(type => {
+        html += `<h4 class="font-semibold mt-4">${type.toUpperCase()}</h4>`;
+        html += `<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-2">`;
+
+        hostelData[floor][type].forEach(r => {
+          if (r.students.length === 0) {
+            vacant++;
+            html += `<div class="bg-green-500 text-white p-4 rounded space-y-2">
+          <div class="font-bold">Room ${r.room}</div>
+          <div>Vacant</div>
+          <div class="flex gap-2">
+            <button onclick="updateRoom('${r.room}')" class="bg-yellow-400 text-black px-2 py-1 text-xs rounded">Update</button>
+            <button onclick="deleteRoom('${r.room}')" class="bg-black text-white px-2 py-1 text-xs rounded">Delete</button>
+          </div>
+        </div>`;
+          } else {
+            occupied++;
+            html += `<div class="bg-red-500 text-white p-4 rounded space-y-2">
+          <div class="font-bold">Room ${r.room}</div>
+          <div class="text-sm">${r.students.join(', ')}</div>
+          <div class="flex gap-2">
+            <button onclick="updateRoom('${r.room}')" class="bg-yellow-400 text-black px-2 py-1 text-xs rounded">Update</button>
+            <button onclick="deleteRoom('${r.room}')" class="bg-black text-white px-2 py-1 text-xs rounded">Delete</button>
+          </div>
+        </div>`;
+          }
+        });
+
+        html += '</div>';
+      });
+
+      roomData.innerHTML = html;
+      vacantCount.innerText = `Vacant Rooms: ${vacant}`;
+      occupiedCount.innerText = `Occupied Rooms: ${occupied}`;
+    }
+
+    function closeRoomModal() {
+      roomModal.classList.add('hidden');
+      roomModal.classList.remove('flex');
+    }
+
+    // ===== DEMO ROOM ACTIONS =====
+    function updateRoom(roomNo) {
+      const newCapacity = prompt("Enter new capacity for Room " + roomNo);
+      if (newCapacity !== null) {
+        alert("Room " + roomNo + " updated successfully (Demo)");
+      }
+    }
+
+    function deleteRoom(roomNo) {
+      if (confirm("Are you sure you want to delete Room " + roomNo + "?")) {
+        alert("Room " + roomNo + " deleted successfully (Demo)");
+      }
+    }
+
+    window.onload = function () {
+
+      const role = sessionStorage.getItem("userRole");
+
+      const btnDesktop = document.getElementById("loginBtnDesktop");
+      const btnMobile = document.getElementById("loginBtnMobile");
+
+      if (role) {
+
+        if (btnDesktop) {
+          btnDesktop.innerText = "Logout";
+          btnDesktop.onclick = logout;
+        }
+
+        if (btnMobile) {
+          btnMobile.innerText = "Logout";
+          btnMobile.onclick = logout;
+        }
+
+      }
+
+    }
+
+    function logout() {
+      sessionStorage.removeItem("userRole");
+      window.location.href = "index.html";
+    }
+  </script>
+
+</body>
+
+</html>
+

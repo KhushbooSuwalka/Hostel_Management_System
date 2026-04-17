@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* for room allotment form */
+.input {
+  @apply w-full mt-1 border px-4 py-2 rounded-lg focus:ring-2 focus:ring-blue-400;
+}
+
+/* for contact form */
+.input {
+  @apply w-full border px-4 py-3 rounded-lg focus:ring-2 focus:ring-purple-400 outline-none;
+}
